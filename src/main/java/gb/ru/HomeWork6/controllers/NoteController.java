@@ -15,32 +15,18 @@ import java.util.List;
 @RequestMapping("/note")
 public class NoteController {
     private final NoteService noteService;
-    /**
-     * Добавление(создание) новой заметки
-     * @param note
-     * @return
-     */
+
     @PostMapping
     public ResponseEntity<Note> createNote(@RequestBody Note note){
         note.setCreateDate(LocalDateTime.now());
         return new ResponseEntity<>(noteService.createNote(note), HttpStatus.CREATED);
     }
 
-
-    /**
-     * Просмотр всех заметок
-     * @return
-     */
     @GetMapping
     public ResponseEntity<List<Note>> getAll(){
         return new ResponseEntity<>(noteService.getAllNote(), HttpStatus.OK);
     }
 
-    /**
-     * Получение заметки по ID
-     * @param id
-     * @return
-     */
     @GetMapping("/{id}")
     public ResponseEntity<Note> getNote(@PathVariable("id") Long id) {
         Note noteById;
@@ -52,11 +38,6 @@ public class NoteController {
         return new ResponseEntity<>(noteById, HttpStatus.OK);
     }
 
-    /**
-     * Редактирование заметки по id
-     * @param note
-     * @return
-     */
 
     @PutMapping("/{id}")
     public ResponseEntity<Note> updateNote(@RequestBody Note note, @PathVariable("id") Long id) {
